@@ -46,7 +46,7 @@ export default function Home() {
     
     return (
         <div className="container">
-            <div className="flex flex-col items-center py-10">
+            <div className="flex flex-col items-center py-6">
               <h1>Kda calculator</h1>
               <i>League of Legends</i>
             </div>
