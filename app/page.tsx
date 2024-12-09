@@ -53,7 +53,7 @@ export default function Home() {
     
     return (
         <div className="container">
-            <ToastContainer />
+            <ToastContainer position="bottom-right" />
             <div className="flex flex-col items-center py-6">
               <h1 className="italic">KDA CALCULATOR</h1>
               <i className="text-yellow-500">League of Legends</i>
