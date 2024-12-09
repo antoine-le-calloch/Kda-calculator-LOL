@@ -23,6 +23,7 @@ export default function Home() {
     
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
         try{
             const response = await fetch(
                 `/api/kda?summonerName=${profile.name}&summonerTagline=${profile.tagline}&startDate=${period.startDate}&endDate=${period.endDate}`
