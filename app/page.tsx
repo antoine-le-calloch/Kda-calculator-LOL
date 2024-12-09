@@ -50,7 +50,7 @@ export default function Home() {
               <h1>Kda calculator</h1>
               <i>League of Legends</i>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-6">
                 <form onSubmit={handleSearch} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
                     <div className="flex">
                         <input
@@ -101,13 +101,15 @@ export default function Home() {
                 </form>
             </div>
             <div>
-                <div>
+                <div className="flex justify-center">
                     {listPeriodData.map(({profile, period, matchesData}, index) => (
-                        <div key={index}>
+                        <div key={index} className="w-1/3 bg-white p-6 rounded-xl shadow-md m-4">
                             <h3>{profile.name}#{profile.tagline}</h3>
-                            <p>Kills: {matchesData.kdaTotal.kills}</p>
-                            <p>Deaths: {matchesData.kdaTotal.deaths}</p>
-                            <p>Assists: {matchesData.kdaTotal.assists}</p>
+                            <div className="flex justify-around gap-4">
+                                <p>Kills: {matchesData.kdaTotal.kills}</p>
+                                <p>Deaths: {matchesData.kdaTotal.deaths}</p>
+                                <p>Assists: {matchesData.kdaTotal.assists}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
