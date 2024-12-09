@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({error: 'Missing required parameters'}, {status: 400});
     }
     
-    let listOfKda: Kda[] = [];
+    let kdaList: Kda[] = [];
     
     try {
         // get account puuid
@@ -56,9 +56,9 @@ export async function GET(request: NextRequest) {
             if (!sumData) {
                 return NextResponse.json({error: 'Summoner not found in match'}, {status: 404});
             }
-            listOfKda.push({ kills: sumData.kills, deaths: sumData.deaths, assists: sumData.assists,});
+            kdaList.push({ kills: sumData.kills, deaths: sumData.deaths, assists: sumData.assists,});
         }
-        return NextResponse.json({listOfKda: listOfKda, nbMatches: nbMatches}, { status: 200 });
+        return NextResponse.json({kdaList: kdaList, nbMatches: nbMatches}, { status: 200 });
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         return NextResponse.json({error: message}, {status: 500});
