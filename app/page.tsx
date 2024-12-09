@@ -45,11 +45,11 @@ export default function Home() {
     return (
         <div className="container">
             <div className="flex flex-col items-center py-6">
-              <h1>Kda calculator</h1>
+              <h1>KDA CALCULATOR</h1>
               <i>League of Legends</i>
             </div>
             <div className="flex justify-center mb-6">
-                <form onSubmit={handleSearch} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
+                <form onSubmit={handleSearch} className="p-6 w-full max-w-sm">
                     <div className="flex">
                         <input
                             type="text"
@@ -75,7 +75,7 @@ export default function Home() {
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
                             <button onClick={() => handleAutofill(true)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
-                            hover:bg-emerald-400 duration-700 ease-in-out w-1/3">
+                            hover:bg-emerald-300 duration-500 ease-in-out w-1/3">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
@@ -87,7 +87,7 @@ export default function Home() {
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
                             <button onClick={() => handleAutofill(false)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
-                            hover:bg-emerald-400 duration-700 ease-in-out w-1/3">
+                            hover:bg-emerald-300 duration-500 ease-in-out w-1/3">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
@@ -99,14 +99,23 @@ export default function Home() {
                 </form>
             </div>
             <div>
-                <div className="flex justify-center">
+                <div className="flex flex-col items-center">
                     {listPeriodData.map(({profile, period, matchesData}, index) => (
-                        <div key={index} className="w-1/3 bg-white p-6 rounded-xl shadow-md m-4">
-                            <h3>{profile.name}#{profile.tagline}</h3>
+                        <div key={index} className={`w-full max-w-sm py-1 px-2
+                        ${matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'bg-green-200' : 'bg-red-200'}`}>
+                            <div className="font-bold">{profile.name}#{profile.tagline}</div>
                             <div className="flex justify-around gap-4">
-                                <p>Kills: {matchesData.kdaTotal.kills}</p>
-                                <p>Deaths: {matchesData.kdaTotal.deaths}</p>
-                                <p>Assists: {matchesData.kdaTotal.assists}</p>
+                                <p>Average:</p>
+                                <p>{matchesData.kdaTotal.kills / matchesData.nbMatches} / {matchesData.kdaTotal.deaths / matchesData.nbMatches} / {matchesData.kdaTotal.assists / matchesData.nbMatches}</p>
+                            </div>
+                            <div className="flex justify-around gap-4">
+                                <p>Total:</p>
+                                <p>{matchesData.kdaTotal.kills} / {matchesData.kdaTotal.deaths} / {matchesData.kdaTotal.assists}</p>
+                            </div>
+                            <div className="flex justify-end text-xs text-gray-600">
+                                <div>
+                                    {(new Date(period.startDate)).toLocaleString('fr-FR')} - {(new Date(period.endDate)).toLocaleString('fr-FR')}
+                                </div>
                             </div>
                         </div>
                     ))}
