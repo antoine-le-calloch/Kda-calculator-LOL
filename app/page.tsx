@@ -54,10 +54,10 @@ export default function Home() {
         <div className="container">
             <ToastContainer />
             <div className="flex flex-col items-center py-6">
-              <h1>KDA CALCULATOR</h1>
-              <i>League of Legends</i>
+              <h1 className="italic">KDA CALCULATOR</h1>
+              <i className="text-yellow-500">League of Legends</i>
             </div>
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-6 text-blue-950">
                 <form onSubmit={handleSearch} className="p-6 w-full max-w-sm">
                     <div className="flex">
                         <input
@@ -83,8 +83,8 @@ export default function Home() {
                                 onChange={(e) => setPeriod({...period, startDate: e.target.value})}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
-                            <button onClick={() => handleAutofill(true)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
-                            hover:bg-emerald-300 duration-500 ease-in-out w-1/3">
+                            <button onClick={() => handleAutofill(true)} type="button" className="bg-gradient-to-r from-green-700 to-black
+                            text-white font-bold p-1 rounded-l-none rounded w-1/3 hover:text-yellow-500 duration-700">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
@@ -95,14 +95,14 @@ export default function Home() {
                                 onChange={(e) => setPeriod({...period, endDate: e.target.value})}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
-                            <button onClick={() => handleAutofill(false)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
-                            hover:bg-emerald-300 duration-500 ease-in-out w-1/3">
+                            <button onClick={() => handleAutofill(false)} type="button" className="bg-gradient-to-r from-green-700 to-black
+                             text-white font-bold p-1 rounded-l-none rounded w-1/3 hover:text-yellow-500 duration-700">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
                     </div>
-                    <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full
-                    hover:bg-blue-400 duration-700 ease-in-out flex justify-center">
+                    <button type="submit" className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold p-2 rounded w-full
+                    hover:scale-110 duration-700 ease-in-out flex justify-center">
                         {loading ? <div className="loading-spinner"></div> : 'Search'}
                     </button>
                 </form>
