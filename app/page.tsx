@@ -9,8 +9,9 @@ interface PeriodData {
 }
 
 export default function Home() {
+    const defaultTagline = 'EUW';
     const [profile, setProfile] = useState<Profile>({
-        name: '', tagline: ''
+        name: '', tagline: defaultTagline
     });
     const [period, setPeriod] = useState<Period>({
         startDate: '', endDate: ''
@@ -28,7 +29,7 @@ export default function Home() {
             if (matchesData) {
                 setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
             }
-            setProfile({name: '', tagline: ''});
+            setProfile({name: '', tagline: defaultTagline});
             setPeriod({startDate: '', endDate: ''});
             setMatchesData(null);
         } catch (error) {
