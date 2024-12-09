@@ -134,7 +134,10 @@ export default function Home() {
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex justify-end text-xs italic font-light text-gray-300">
+                            <div className="flex justify-between text-xs italic font-light text-gray-300">
+                                <div>
+                                    {matchesData.nbMatches} games
+                                </div>
                                 <div>
                                     {(new Date(period.startDate)).toLocaleString('fr-FR')} - {(new Date(period.endDate)).toLocaleString('fr-FR')}
                                 </div>
