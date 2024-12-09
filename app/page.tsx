@@ -118,18 +118,23 @@ export default function Home() {
             <div>
                 <div className="flex flex-col items-center">
                     {listPeriodData.map(({profile, period, matchesData}, index) => (
-                        <div key={index} className={`w-full max-w-sm py-1 px-2
-                        ${matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'bg-green-200' : 'bg-red-200'}`}>
-                            <div className="font-bold">{profile.name}#{profile.tagline}</div>
-                            <div className="flex justify-around gap-4">
-                                <p>Average:</p>
-                                <p>{matchesData.kdaTotal.kills / matchesData.nbMatches} / {matchesData.kdaTotal.deaths / matchesData.nbMatches} / {matchesData.kdaTotal.assists / matchesData.nbMatches}</p>
+                        <div key={index} className="w-full max-w-sm py-1 px-2 border-b-2 border-b-red-500 bg-blue-900 font-bold">
+                            <div className="text-yellow-500">{profile.name}#{profile.tagline}</div>
+                            <div className="my-2">
+                                <div className="flex justify-center gap-4">
+                                    <p className="font-light">Average:</p>
+                                    <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-500' : 'text-red-500'}>
+                                        {matchesData.kdaTotal.kills / matchesData.nbMatches} / {matchesData.kdaTotal.deaths / matchesData.nbMatches} / {matchesData.kdaTotal.assists / matchesData.nbMatches}
+                                    </p>
+                                </div>
+                                <div className="flex justify-center gap-4">
+                                    <p className="font-light">Total:</p>
+                                    <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-500' : 'text-red-500'}>
+                                        {matchesData.kdaTotal.kills} / {matchesData.kdaTotal.deaths} / {matchesData.kdaTotal.assists}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="flex justify-around gap-4">
-                                <p>Total:</p>
-                                <p>{matchesData.kdaTotal.kills} / {matchesData.kdaTotal.deaths} / {matchesData.kdaTotal.assists}</p>
-                            </div>
-                            <div className="flex justify-end text-xs text-gray-600">
+                            <div className="flex justify-end text-xs italic font-light text-gray-300">
                                 <div>
                                     {(new Date(period.startDate)).toLocaleString('fr-FR')} - {(new Date(period.endDate)).toLocaleString('fr-FR')}
                                 </div>
