@@ -36,15 +36,15 @@ export default function Home() {
                 `/api/kda?summonerName=${profile.name}&summonerTagline=${profile.tagline}&startDate=${period.startDate}&endDate=${period.endDate}`
             );
             const matchesData = await response.json();
-            if (matchesData) {
+            if (!matchesData || matchesData.error || !matchesData.nbMatches){
+                toast.error('Error fetching data !');
+            }else{
                 setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
                 toast.success('Data fetched successfully !');
-            }else{
-                toast.error('No data found !');
+                setProfile({name: '', tagline: defaultTagline});
+                setPeriod({startDate: '', endDate: ''});
             }
             setLoading(false);
-            setProfile({name: '', tagline: defaultTagline});
-            setPeriod({startDate: '', endDate: ''});
         } catch (error) {
             toast.error('Error fetching data !');
             setLoading(false);
