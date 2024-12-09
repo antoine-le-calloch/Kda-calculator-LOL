@@ -22,6 +22,13 @@ export default function Home() {
         }
     };
     
+    const handleAutofill = (isStartDate: boolean) => {
+        if (isStartDate) 
+            setStartDate(process.env.NEXT_PUBLIC_AUTOFILL_START_DATE || '');
+        else
+            setEndDate(process.env.NEXT_PUBLIC_AUTOFILL_END_DATE || '');
+    };
+    
     return (
         <div className="container">
             <div className="flex flex-col items-center py-10">
@@ -45,9 +52,9 @@ export default function Home() {
                                 onChange={(e) => setStartDate(e.target.value)}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
-                            <button type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
+                            <button onClick={() => handleAutofill(true)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
                             hover:bg-emerald-400 duration-700 ease-in-out">
-                                autofill
+                                {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
                         <div className="flex mb-4">
@@ -57,9 +64,9 @@ export default function Home() {
                                 onChange={(e) => setEndDate(e.target.value)}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
-                            <button type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
+                            <button onClick={() => handleAutofill(false)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
                             hover:bg-emerald-400 duration-700 ease-in-out">
-                                autofill
+                                {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
                     </div>
