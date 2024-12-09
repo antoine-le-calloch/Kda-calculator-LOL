@@ -23,6 +23,13 @@ export default function Home() {
     
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if(!profile.name || !profile.tagline || !period.startDate || !period.endDate){
+            toast.error('Please fill all fields !');
+            return;
+        }else if (period.startDate >= period.endDate || period.endDate >= new Date().toISOString().slice(0, 16)){
+            toast.error('Invalid date range !');
+            return;
+        }
         setLoading(true);
         try{
             const response = await fetch(
