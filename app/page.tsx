@@ -2,33 +2,45 @@
 
 import React, {useState} from "react";
 
-export default function Home() {
-    const [summonerName, setSummonerName] = useState('');
-    const [summonerTagline, setSummonerTagline] = useState('EUW');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [kdaList, setKdaList] = useState<Kda[]>([]);
+interface PeriodData {
+    profile: Profile;
+    period: Period;
+    matchesData: MatchesData;
+}
 
+export default function Home() {
+    const [profile, setProfile] = useState<Profile>({
+        name: '', tagline: ''
+    });
+    const [period, setPeriod] = useState<Period>({
+        startDate: '', endDate: ''
+    });
+    const [matchesData, setMatchesData] = useState<MatchesData | null>(null);
+    const [listPeriodData, setListPeriodData] = useState<PeriodData[]>([]);
+    
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
             const response = await fetch(
-                `/api/kda?summonerName=${summonerName}&summonerTagline=${summonerTagline}
-                &startDate=${startDate}&endDate=${endDate}`
+                `/api/kda?summonerName=${profile.name}&summonerTagline=${profile.tagline}&startDate=${period.startDate}&endDate=${period.endDate}`
             );
-            
-            const data = await response.json();
-            setKdaList(data);
+            setMatchesData((await response.json()) as MatchesData);
+            if (matchesData) {
+                setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
+            }
+            setProfile({name: '', tagline: ''});
+            setPeriod({startDate: '', endDate: ''});
+            setMatchesData(null);
         } catch (error) {
             console.error('Error fetching KDA data:', error);
         }
     };
     
     const handleAutofill = (isStartDate: boolean) => {
-        if (isStartDate) 
-            setStartDate(process.env.NEXT_PUBLIC_AUTOFILL_START_DATE || '');
+        if (isStartDate)
+            setPeriod({...period, startDate: process.env.NEXT_PUBLIC_AUTOFILL_START_DATE || ''});
         else
-            setEndDate(process.env.NEXT_PUBLIC_AUTOFILL_END_DATE || '');
+            setPeriod({...period, endDate: process.env.NEXT_PUBLIC_AUTOFILL_END_DATE || ''});
     };
     
     return (
@@ -43,15 +55,15 @@ export default function Home() {
                         <input
                             type="text"
                             placeholder="Summoner Name"
-                            value={summonerName}
-                            onChange={(e) => setSummonerName(e.target.value)}
+                            value={profile.name}
+                            onChange={(e) => setProfile({...profile, name: e.target.value})}
                             className="mb-4 p-2 border  rounded-r-none rounded w-full focus:z-10"
                         />
                         <input
                             type="text"
                             placeholder="Tagline"
-                            value={summonerTagline}
-                            onChange={(e) => setSummonerTagline(e.target.value)}
+                            value={profile.tagline}
+                            onChange={(e) => setProfile({...profile, tagline: e.target.value})}
                             className="mb-4 p-2 border rounded-l-none rounded w-1/3"
                         />
                     </div>
@@ -59,8 +71,8 @@ export default function Home() {
                         <div className="flex mb-4">
                             <input
                                 type="datetime-local"
-                                value={startDate}
-                                onChange={(e) => setStartDate(e.target.value)}
+                                value={period.startDate}
+                                onChange={(e) => setPeriod({...period, startDate: e.target.value})}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
                             <button onClick={() => handleAutofill(true)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
@@ -71,8 +83,8 @@ export default function Home() {
                         <div className="flex mb-4">
                             <input
                                 type="datetime-local"
-                                value={endDate}
-                                onChange={(e) => setEndDate(e.target.value)}
+                                value={period.endDate}
+                                onChange={(e) => setPeriod({...period, endDate: e.target.value})}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
                             <button onClick={() => handleAutofill(false)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
@@ -89,12 +101,12 @@ export default function Home() {
             </div>
             <div>
                 <div>
-                    {kdaList.map((kdaList) => (
-                        <div>
-                            <h3>Your KDA:</h3>
-                            <p>Kills: {kdaList.kills}</p>
-                            <p>Deaths: {kdaList.deaths}</p>
-                            <p>Assists: {kdaList.assists}</p>
+                    {listPeriodData.map(({profile, period, matchesData}, index) => (
+                        <div key={index}>
+                            <h3>{profile.name}#{profile.tagline}</h3>
+                            <p>Kills: {matchesData.kdaTotal.kills}</p>
+                            <p>Deaths: {matchesData.kdaTotal.deaths}</p>
+                            <p>Assists: {matchesData.kdaTotal.assists}</p>
                         </div>
                     ))}
                 </div>
