@@ -4,6 +4,7 @@ import React, {useState} from "react";
 
 export default function Home() {
     const [summonerName, setSummonerName] = useState('');
+    const [summonerTagline, setSummonerTagline] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [kdaList, setKdaList] = useState<Kda[]>([]);
@@ -12,7 +13,8 @@ export default function Home() {
         e.preventDefault();
         try{
             const response = await fetch(
-                `/api/kda?summonerName=${summonerName}&startDate=${startDate}&endDate=${endDate}`
+                `/api/kda?summonerName=${summonerName}&summonerTagline=${summonerTagline}
+                &startDate=${startDate}&endDate=${endDate}`
             );
             
             const data = await response.json();
@@ -37,13 +39,22 @@ export default function Home() {
             </div>
             <div className="flex justify-center">
                 <form onSubmit={handleSearch} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-                    <input
-                        type="text"
-                        placeholder="Summoner Name"
-                        value={summonerName}
-                        onChange={(e) => setSummonerName(e.target.value)}
-                        className="mb-4 p-2 border rounded w-full"
-                    />
+                    <div className="flex">
+                        <input
+                            type="text"
+                            placeholder="Summoner Name"
+                            value={summonerName}
+                            onChange={(e) => setSummonerName(e.target.value)}
+                            className="mb-4 p-2 border  rounded-r-none rounded w-full focus:z-10"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Tagline"
+                            value={summonerName}
+                            onChange={(e) => setSummonerTagline(e.target.value)}
+                            className="mb-4 p-2 border rounded-l-none rounded w-1/3"
+                        />
+                    </div>
                     <div>
                         <div className="flex mb-4">
                             <input
@@ -53,7 +64,7 @@ export default function Home() {
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
                             <button onClick={() => handleAutofill(true)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
-                            hover:bg-emerald-400 duration-700 ease-in-out">
+                            hover:bg-emerald-400 duration-700 ease-in-out w-1/3">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
@@ -65,7 +76,7 @@ export default function Home() {
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
                             <button onClick={() => handleAutofill(false)} type="button" className="bg-emerald-500 text-white font-bold p-1 rounded-l-none rounded
-                            hover:bg-emerald-400 duration-700 ease-in-out">
+                            hover:bg-emerald-400 duration-700 ease-in-out w-1/3">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
