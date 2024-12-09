@@ -25,7 +25,7 @@ export default function Home() {
             const response = await fetch(
                 `/api/kda?summonerName=${profile.name}&summonerTagline=${profile.tagline}&startDate=${period.startDate}&endDate=${period.endDate}`
             );
-            setMatchesData((await response.json()) as MatchesData);
+            setMatchesData(await response.json());
             if (matchesData) {
                 setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
             }
