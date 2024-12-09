@@ -4,7 +4,7 @@ import React, {useState} from "react";
 
 export default function Home() {
     const [summonerName, setSummonerName] = useState('');
-    const [summonerTagline, setSummonerTagline] = useState('');
+    const [summonerTagline, setSummonerTagline] = useState('EUW');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [kdaList, setKdaList] = useState<Kda[]>([]);
@@ -50,7 +50,7 @@ export default function Home() {
                         <input
                             type="text"
                             placeholder="Tagline"
-                            value={summonerName}
+                            value={summonerTagline}
                             onChange={(e) => setSummonerTagline(e.target.value)}
                             className="mb-4 p-2 border rounded-l-none rounded w-1/3"
                         />
