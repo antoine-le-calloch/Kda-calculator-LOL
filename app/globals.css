@@ -23,3 +23,21 @@ body {
 h1 {
   @apply text-4xl text-balance font-bold my-2;
 }
+
+.loading-spinner {
+  border: 3px solid rgba(0, 0, 0, 0.35);
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
