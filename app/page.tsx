@@ -16,7 +16,6 @@ export default function Home() {
     const [period, setPeriod] = useState<Period>({
         startDate: '', endDate: ''
     });
-    const [matchesData, setMatchesData] = useState<MatchesData | null>(null);
     const [listPeriodData, setListPeriodData] = useState<PeriodData[]>([]);
     
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,13 +24,12 @@ export default function Home() {
             const response = await fetch(
                 `/api/kda?summonerName=${profile.name}&summonerTagline=${profile.tagline}&startDate=${period.startDate}&endDate=${period.endDate}`
             );
-            setMatchesData(await response.json());
+            const matchesData = await response.json();
             if (matchesData) {
                 setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
             }
             setProfile({name: '', tagline: defaultTagline});
             setPeriod({startDate: '', endDate: ''});
-            setMatchesData(null);
         } catch (error) {
             console.error('Error fetching KDA data:', error);
         }
