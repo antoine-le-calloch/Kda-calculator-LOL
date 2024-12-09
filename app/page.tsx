@@ -1,6 +1,8 @@
 "use client";
 
 import React, {useState} from "react";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface PeriodData {
     profile: Profile;
@@ -10,6 +12,7 @@ interface PeriodData {
 
 export default function Home() {
     const defaultTagline = 'EUW';
+    const [loading, setLoading] = useState(false);
     const [profile, setProfile] = useState<Profile>({
         name: '', tagline: defaultTagline
     });
@@ -27,11 +30,16 @@ export default function Home() {
             const matchesData = await response.json();
             if (matchesData) {
                 setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
+                toast.success('Data fetched successfully !');
+            }else{
+                toast.error('No data found !');
             }
+            setLoading(false);
             setProfile({name: '', tagline: defaultTagline});
             setPeriod({startDate: '', endDate: ''});
         } catch (error) {
-            console.error('Error fetching KDA data:', error);
+            toast.error('Error fetching data !');
+            setLoading(false);
         }
     };
     
@@ -44,6 +52,7 @@ export default function Home() {
     
     return (
         <div className="container">
+            <ToastContainer />
             <div className="flex flex-col items-center py-6">
               <h1>KDA CALCULATOR</h1>
               <i>League of Legends</i>
@@ -93,8 +102,8 @@ export default function Home() {
                         </div>
                     </div>
                     <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full
-                    hover:bg-blue-400 duration-700 ease-in-out">
-                        Search
+                    hover:bg-blue-400 duration-700 ease-in-out flex justify-center">
+                        {loading ? <div className="loading-spinner"></div> : 'Search'}
                     </button>
                 </form>
             </div>
