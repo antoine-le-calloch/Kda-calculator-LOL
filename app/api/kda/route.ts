@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
     }
     
     let kdaList: Kda[] = [];
+    let kdaTotal: Kda = {kills: 0, deaths: 0, assists: 0};
     
     try {
         // get account puuid
@@ -57,8 +58,16 @@ export async function GET(request: NextRequest) {
                 return NextResponse.json({error: 'Summoner not found in match'}, {status: 404});
             }
             kdaList.push({ kills: sumData.kills, deaths: sumData.deaths, assists: sumData.assists,});
+            kdaTotal.kills += sumData.kills;
+            kdaTotal.deaths += sumData.deaths;
+            kdaTotal.assists += sumData.assists;
         }
-        return NextResponse.json({kdaList: kdaList, nbMatches: nbMatches}, { status: 200 });
+        const matchesData: MatchesData = {
+            nbMatches: nbMatches,
+            kdaList: kdaList,
+            kdaTotal: kdaTotal,
+        }
+        return NextResponse.json(matchesData, { status: 200 });
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         return NextResponse.json({error: message}, {status: 500});
