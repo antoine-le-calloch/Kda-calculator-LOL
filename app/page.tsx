@@ -91,7 +91,7 @@ export default function Home() {
                                 onChange={(e) => setPeriod({...period, startDate: e.target.value})}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
-                            <button onClick={() => handleAutofill(true)} type="button" className="bg-gradient-to-r from-green-700 to-black
+                            <button onClick={() => handleAutofill(true)} type="button" className="bg-gradient-to-r from-green-600 to-black
                             text-white font-bold p-1 rounded-l-none rounded w-1/3 hover:text-yellow-500 duration-700">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
@@ -103,7 +103,7 @@ export default function Home() {
                                 onChange={(e) => setPeriod({...period, endDate: e.target.value})}
                                 className="p-2 border rounded-r-none rounded w-full"
                             />
-                            <button onClick={() => handleAutofill(false)} type="button" className="bg-gradient-to-r from-green-700 to-black
+                            <button onClick={() => handleAutofill(false)} type="button" className="bg-gradient-to-r from-green-600 to-black
                              text-white font-bold p-1 rounded-l-none rounded w-1/3 hover:text-yellow-500 duration-700">
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
@@ -118,18 +118,18 @@ export default function Home() {
             <div>
                 <div className="flex flex-col items-center">
                     {listPeriodData.map(({profile, period, matchesData}, index) => (
-                        <div key={index} className="w-full max-w-sm py-1 px-2 border-b-2 border-b-red-500 bg-blue-900 font-bold">
+                        <div key={index} className="w-full max-w-sm py-1 px-2 border-b-2 border-b-blue-950 bg-blue-900 font-bold">
                             <div className="text-yellow-500">{profile.name}#{profile.tagline}</div>
                             <div className="my-2">
                                 <div className="flex justify-center gap-4">
                                     <p className="font-light">Average:</p>
-                                    <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-500' : 'text-red-500'}>
+                                    <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-400' : 'text-red-400'}>
                                         {matchesData.kdaTotal.kills / matchesData.nbMatches} / {matchesData.kdaTotal.deaths / matchesData.nbMatches} / {matchesData.kdaTotal.assists / matchesData.nbMatches}
                                     </p>
                                 </div>
                                 <div className="flex justify-center gap-4">
                                     <p className="font-light">Total:</p>
-                                    <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-500' : 'text-red-500'}>
+                                    <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-400' : 'text-red-400'}>
                                         {matchesData.kdaTotal.kills} / {matchesData.kdaTotal.deaths} / {matchesData.kdaTotal.assists}
                                     </p>
                                 </div>
