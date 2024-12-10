@@ -50,7 +50,7 @@ export default function Home() {
                 setPeriod({startDate: '', endDate: ''});
             }
             setLoading(false);
-        } catch (_) {
+        } catch {
             toast.error('Error fetching data !');
             setLoading(false);
         }

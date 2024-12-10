@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
             kdaTotal: kdaTotal,
         }
         return NextResponse.json(matchesData, { status: 200 });
-    } catch (_) {
+    } catch {
         return NextResponse.json({}, {status: 500});
     }
 }
