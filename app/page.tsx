@@ -133,9 +133,9 @@ export default function Home() {
                         <div key={index}
                              className="w-full max-w-sm py-1 px-2 border-b-2 border-b-blue-950 bg-blue-900 font-bold relative">
                             {profile.name == process.env.NEXT_PUBLIC_SPECIAL_EVENT_SUMMONER_NAME ?
-                                <Image src={'/special-event/' + process.env.NEXT_PUBLIC_SPECIAL_EVENT} alt="special event"
+                                <Image src={'/cheems.png'} alt="special event"
                                        width={48} height={48} className="absolute right-2 top-1"/> :
-                                <Image src={'/special-event/' + process.env.NEXT_PUBLIC_NO_EVENT} alt="no event"
+                                <Image src={'/swole.png'} alt="no event"
                                        width={48} height={48} className="absolute right-2 top-1"/>
                             }
                             <div className="text-yellow-500">
