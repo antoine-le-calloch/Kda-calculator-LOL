@@ -1,4 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
+import {Kda, MatchesData} from "@/components/types/global";
 
 interface participant {
     "puuid": string,

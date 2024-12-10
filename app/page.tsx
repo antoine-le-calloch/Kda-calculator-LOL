@@ -4,6 +4,17 @@ import React, {useState} from "react";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
+import {MatchesData} from "@/components/types/global";
+
+export interface Profile {
+    name: string;
+    tagline: string;
+}
+
+export interface Period {
+    startDate: string;
+    endDate: string;
+}
 
 interface PeriodData {
     profile: Profile;
