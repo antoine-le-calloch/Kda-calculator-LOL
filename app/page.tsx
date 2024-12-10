@@ -77,26 +77,28 @@ export default function Home() {
     return (
         <div className="container">
             <ToastContainer position="bottom-right"/>
-            <div className="flex justify-center mb-6 text-blue-950">
-                <form onSubmit={handleSearch} className="p-6 w-full max-w-sm">
+            <div className="flex justify-center mb-4 text-blue-950">
+                <form onSubmit={handleSearch} className="p-4 w-full max-w-sm">
+                    <label className="text-white font-bold text-xs">Profile</label>
                     <div className="flex">
                         <input
                             type="text"
                             placeholder="Summoner Name"
                             value={profile.name}
                             onChange={(e) => setProfile({...profile, name: e.target.value})}
-                            className="mb-4 p-2 border  rounded-r-none rounded w-full focus:z-10"
+                            className="p-2 border  rounded-r-none rounded w-full focus:z-10"
                         />
                         <input
                             type="text"
                             placeholder="Tagline"
                             value={profile.tagline}
                             onChange={(e) => setProfile({...profile, tagline: e.target.value})}
-                            className="mb-4 p-2 border rounded-l-none rounded w-1/3"
+                            className="p-2 border rounded-l-none rounded w-1/3"
                         />
                     </div>
-                    <div>
-                        <div className="flex mb-4">
+                    <div className="mb-4">
+                        <label className="text-white font-bold text-xs">From</label>
+                        <div className="flex">
                             <input
                                 type="datetime-local"
                                 value={period.startDate}
@@ -108,7 +110,8 @@ export default function Home() {
                                 {process.env.NEXT_PUBLIC_AUTOFILL}
                             </button>
                         </div>
-                        <div className="flex mb-4">
+                        <label className="text-white font-bold text-xs">To</label>
+                        <div className="flex">
                             <input
                                 type="datetime-local"
                                 value={period.endDate}
@@ -122,12 +125,12 @@ export default function Home() {
                         </div>
                     </div>
                     <button type="submit" className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold p-2 rounded w-full
-                    hover:scale-110 duration-700 ease-in-out flex justify-center">
+                    hover:scale-105 duration-700 ease-in-out flex justify-center">
                         {loading ? <div className="loading-spinner"></div> : 'Search'}
                     </button>
                 </form>
             </div>
-            <div>
+            <div className="mb-2">
                 <div className="flex flex-col items-center">
                     {listPeriodData.map(({profile, period, matchesData}, index) => (
                         <div key={index}
