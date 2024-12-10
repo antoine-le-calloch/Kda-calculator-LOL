@@ -64,10 +64,10 @@ export default function Home() {
     
     return (
         <div className="container">
-            <ToastContainer position="bottom-right" />
-            <div className="flex flex-col items-center py-6">
-              <h1 className="italic">KDA CALCULATOR</h1>
-              <i className="text-yellow-500">League of Legends</i>
+            <ToastContainer position="bottom-right"/>
+            <div className="flex flex-col items-center pt-8 pb-4">
+                <h1 className="italic">KDA CALCULATOR</h1>
+                <i className="text-yellow-500">League of Legends</i>
             </div>
             <div className="flex justify-center mb-6 text-blue-950">
                 <form onSubmit={handleSearch} className="p-6 w-full max-w-sm">
@@ -122,8 +122,17 @@ export default function Home() {
             <div>
                 <div className="flex flex-col items-center">
                     {listPeriodData.map(({profile, period, matchesData}, index) => (
-                        <div key={index} className="w-full max-w-sm py-1 px-2 border-b-2 border-b-blue-950 bg-blue-900 font-bold">
-                            <div className="text-yellow-500">{profile.name}#{profile.tagline}</div>
+                        <div key={index}
+                             className="w-full max-w-sm py-1 px-2 border-b-2 border-b-blue-950 bg-blue-900 font-bold relative">
+                            {profile.name == process.env.NEXT_PUBLIC_SPECIAL_EVENT_SUMMONER_NAME ?
+                                <img src={process.env.NEXT_PUBLIC_SPECIAL_EVENT} alt="special event"
+                                     className="w-12 h-12 absolute right-2 top-1"/> :
+                                <img src={process.env.NEXT_PUBLIC_NO_EVENT} alt="no event"
+                                     className="w-12 h-12 absolute right-2 top-1"/>
+                            }
+                            <div className="text-yellow-500">
+                                {profile.name}#{profile.tagline}
+                            </div>
                             <div className="my-2">
                                 <div className="flex justify-center gap-4">
                                     <p className="font-light">Average:</p>
