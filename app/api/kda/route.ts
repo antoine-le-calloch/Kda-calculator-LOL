@@ -38,6 +38,9 @@ export async function GET(request: NextRequest) {
             `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${summonerName}/${summonerTagline}?api_key=${API_KEY}`);
         const accountData = await getAccountResponse.json();
         if (!accountData || accountData.error || !accountData.puuid) {
+            if (accountData.status && accountData.status.status_code === 429) {
+                return NextResponse.json({error: 'Too many requests, please try again in 2 minutes'}, {status: 500});
+            }
             return NextResponse.json({error: 'Summoner not found'}, {status: 404});
         }
         const puuid = accountData.puuid;
@@ -51,10 +54,9 @@ export async function GET(request: NextRequest) {
             `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/` +
             `${puuid}/ids?startTime=${startTime}&endTime=${endTime}&start=0&count=100&api_key=${API_KEY}`);
         const matches: [] = await getMatchesResponse.json();
+        if (!matches.length) {return NextResponse.json({error: 'Too many requests, please try again in 2 minutes'}, {status: 500});}
         const nbMatches = matches.length;
-        if (nbMatches === 0) {
-            return NextResponse.json({error: 'No matches found for this period'}, {status: 404});
-        }
+        if (nbMatches === 0) {return NextResponse.json({error: 'No matches found for this period'}, {status: 404});}
         
         // retrieve kda for each match
         for (const matchId of matches) {
