@@ -24,6 +24,10 @@ h1 {
   @apply text-4xl text-balance font-bold my-2;
 }
 
+h2 {
+  @apply text-xl italic text-balance;
+}
+
 .loading-spinner {
   border: 3px solid rgba(0, 0, 0, 0.35);
   border-top: 4px solid #ffffff;
