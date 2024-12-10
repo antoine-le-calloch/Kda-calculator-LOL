@@ -3,6 +3,7 @@
 import React, {useState} from "react";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
 
 interface PeriodData {
     profile: Profile;
@@ -49,7 +50,7 @@ export default function Home() {
                 setPeriod({startDate: '', endDate: ''});
             }
             setLoading(false);
-        } catch (error) {
+        } catch (_) {
             toast.error('Error fetching data !');
             setLoading(false);
         }
@@ -65,10 +66,6 @@ export default function Home() {
     return (
         <div className="container">
             <ToastContainer position="bottom-right"/>
-            <div className="flex flex-col items-center pt-8 pb-4">
-                <h1 className="italic">KDA CALCULATOR</h1>
-                <i className="text-yellow-500">League of Legends</i>
-            </div>
             <div className="flex justify-center mb-6 text-blue-950">
                 <form onSubmit={handleSearch} className="p-6 w-full max-w-sm">
                     <div className="flex">
@@ -125,10 +122,10 @@ export default function Home() {
                         <div key={index}
                              className="w-full max-w-sm py-1 px-2 border-b-2 border-b-blue-950 bg-blue-900 font-bold relative">
                             {profile.name == process.env.NEXT_PUBLIC_SPECIAL_EVENT_SUMMONER_NAME ?
-                                <img src={process.env.NEXT_PUBLIC_SPECIAL_EVENT} alt="special event"
-                                     className="w-12 h-12 absolute right-2 top-1"/> :
-                                <img src={process.env.NEXT_PUBLIC_NO_EVENT} alt="no event"
-                                     className="w-12 h-12 absolute right-2 top-1"/>
+                                <Image src={process.env.NEXT_PUBLIC_SPECIAL_EVENT || '/favicon-32x32.png'} alt="special event"
+                                       width={48} height={48} className="absolute right-2 top-1"/> :
+                                <Image src={'/special-event/' + process.env.NEXT_PUBLIC_NO_EVENT} alt="no event"
+                                       width={48} height={48} className="absolute right-2 top-1"/>
                             }
                             <div className="text-yellow-500">
                                 {profile.name}#{profile.tagline}
