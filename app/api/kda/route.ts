@@ -11,6 +11,9 @@ interface Match {
     "info": {
         "participants": participant[],
     }
+    "status"?: {
+        "status_code": number,
+    }
 }
 
 export async function GET(request: NextRequest) {
@@ -34,6 +37,9 @@ export async function GET(request: NextRequest) {
         const getAccountResponse = await fetch(
             `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${summonerName}/${summonerTagline}?api_key=${API_KEY}`);
         const accountData = await getAccountResponse.json();
+        if (!accountData || accountData.error || !accountData.puuid) {
+            return NextResponse.json({error: 'Summoner not found'}, {status: 404});
+        }
         const puuid = accountData.puuid;
 
         // convert dates to unix timestamps
@@ -46,12 +52,18 @@ export async function GET(request: NextRequest) {
             `${puuid}/ids?startTime=${startTime}&endTime=${endTime}&start=0&count=100&api_key=${API_KEY}`);
         const matches: [] = await getMatchesResponse.json();
         const nbMatches = matches.length;
+        if (nbMatches === 0) {
+            return NextResponse.json({error: 'No matches found for this period'}, {status: 404});
+        }
         
         // retrieve kda for each match
         for (const matchId of matches) {
             const getMatchResponse = await fetch(
                 `https://europe.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${API_KEY}`);
             const match: Match = await getMatchResponse.json();
+            if (match.status && match.status.status_code === 429) {
+                return NextResponse.json({error: 'Too many requests, please try again in 2 minutes'}, {status: 500});
+            }
             const sumData = match.info.participants.find(
                 participant => participant.puuid === puuid);
             if (!sumData) {
@@ -69,7 +81,6 @@ export async function GET(request: NextRequest) {
         }
         return NextResponse.json(matchesData, { status: 200 });
     } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        return NextResponse.json({error: message}, {status: 500});
+        return NextResponse.json({}, {status: 500});
     }
 }

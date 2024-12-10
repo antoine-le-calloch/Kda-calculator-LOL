@@ -37,7 +37,11 @@ export default function Home() {
             );
             const matchesData = await response.json();
             if (!matchesData || matchesData.error || !matchesData.nbMatches){
-                toast.error('Error fetching data !');
+                if (matchesData.error){
+                    toast.error(matchesData.error);
+                }else{
+                    toast.error('Error fetching data ! Please try again later.');
+                }
             }else{
                 setListPeriodData([...listPeriodData, {profile, period, matchesData}]);
                 toast.success('Data fetched successfully !');
