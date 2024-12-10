@@ -141,7 +141,7 @@ export default function Home() {
                             <div className="text-yellow-500">
                                 {profile.name}#{profile.tagline}
                             </div>
-                            <div className="my-2">
+                            <div className="my-2 text-white">
                                 <div className="flex justify-center gap-4">
                                     <p className="font-light">Average:</p>
                                     <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-400' : 'text-red-400'}>
