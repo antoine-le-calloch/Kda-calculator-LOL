@@ -29,8 +29,8 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({error: 'Missing required parameters'}, {status: 400});
     }
     
-    let kdaList: Kda[] = [];
-    let kdaTotal: Kda = {kills: 0, deaths: 0, assists: 0};
+    const kdaList: Kda[] = [];
+    const kdaTotal: Kda = {kills: 0, deaths: 0, assists: 0};
     
     try {
         // get account puuid
@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
             kdaTotal: kdaTotal,
         }
         return NextResponse.json(matchesData, { status: 200 });
-    } catch (error) {
+    } catch (_) {
         return NextResponse.json({}, {status: 500});
     }
 }
