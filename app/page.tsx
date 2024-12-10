@@ -124,7 +124,7 @@ export default function Home() {
                                 <div className="flex justify-center gap-4">
                                     <p className="font-light">Average:</p>
                                     <p className={matchesData.kdaTotal.kills >= matchesData.kdaTotal.deaths ? 'text-green-400' : 'text-red-400'}>
-                                        {matchesData.kdaTotal.kills / matchesData.nbMatches} / {matchesData.kdaTotal.deaths / matchesData.nbMatches} / {matchesData.kdaTotal.assists / matchesData.nbMatches}
+                                        {(matchesData.kdaTotal.kills / matchesData.nbMatches).toFixed(1)} / {(matchesData.kdaTotal.deaths / matchesData.nbMatches).toFixed(1)} / {(matchesData.kdaTotal.assists / matchesData.nbMatches).toFixed(1)}
                                     </p>
                                 </div>
                                 <div className="flex justify-center gap-4">
