@@ -20,7 +20,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/*Custom datetime-local input to fit on SAFARI*/
+/* Custom datetime-local input to fit on SAFARI */
 input[type="datetime-local"]
 {
   min-width: 69%;
